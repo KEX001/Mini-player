@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
     <link
       href="https://fonts.googleapis.com/css?family=Bitter:400,700&display=swap&subset=latin-ext"
       rel="stylesheet"
@@ -12,13 +13,23 @@
       rel="stylesheet"
       href="https://meyerweb.com/eric/tools/css/reset/reset.css"
     />
-    <link rel="stylesheet" href="./css/main.css" />
-    <title>Mini Player</title>
+    
+    <link rel="stylesheet" href="./css/dark-mode.css" />
+    <title>Music Player</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-tT4ZQ7Rb/GJ00Jbs6FNguzrhWvl1hKzRvLQD1vzojeOIcESG9bxJU+Y1ht9n2vR9HdJ/6A8MBw7kC4mg9+hH5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+  <a href="#" title="Share this link"><i class="fa fa-share"></i></a>
+ 
+</body>
   </head>
-  <body>
+  <body onerror="this.classList.add('backup-bg')">
+    
     <div class="wrapper" id="app">
       <div class="player">
+        
         <div class="player__top">
+          
           <div class="player-cover">
             <transition-group :name="transitionName">
                 <div class="player-cover__item" v-if="$index === currentTrackIndex" :style="{ backgroundImage: `url(${track.cover})` }"  v-for="(track, $index) in tracks" :key="$index"></div>
@@ -56,8 +67,9 @@
         <div class="progress" ref="progress">
           <div class="progress__top">
             <div class="album-info" v-if="currentTrack">
+              
               <div class="album-info__name">{{ currentTrack.artist }}</div>
-              <div class="album-info__track">{{ currentTrack.name }}</div>
+              <div class="album-info__track">{{ currentTrack.name }} </div>
             </div>
             <div class="progress__duration">{{ duration }}</div>
           </div>
@@ -66,12 +78,67 @@
           </div>
           <div class="progress__time">{{ currentTime }}</div>
         </div>
-        <div v-cloak></div>
+        
+        
+        <div style="text-align: right;"><a href="https://bit.ly/3p3fYyH" style="text-decoration:none; background-color:black; color:black; padding:1px; border-radius: 5%; text-align: left;" class ="glow-effect">🔗</a>
+          <label for="sleep-time" class="album-info__track">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+  <select id="sleep-time" class="sint" title="set sleep timer">
+    
+    <option value="5">5 mins</option>
+    <option value="10">10 mins</option>
+    <option value="15" selected>15 mins</option>
+    <option value="30">30 mins</option>
+    <option value="45">45 mins</option>
+    <option value="60">60 mins</option>
+  </select>
+  <button onclick="setSleepTime()" title="Click to set sleep timer" class="glow-effect" style=" background-color:black;">🕒</button>
+  
+
+
+ <!-- <div class="separator"></div>
+          <p id ="txt" style="font-size: 19px; text-align: center; color: #71829e; font-weight: bold-italic;user-select: none; ">
+            Data saver 
+            <label class="switch">
+              <input type="checkbox" id="toggle">
+              <span class="slider round"></span>
+            </label>
+            <span id="status">🙂</span>
+            
+            
+            
+  </div> -->
+          
+            
+            
+          </div>
+         
+          </p>
+          
+        
+        
+        
+       
+         
+        
+        <div v-cloak></div>        
       </div>
-      <a href="https://github.com/muhammederdem/mini-player" target="_blank" class="github-btn">
-        See on GitHub
-      </a>
+       <!-- volume here-->
+        
+        
+     
+          
+          
+        
+
+      </div>
+      
+      
     </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    
+    
+   
 
     <svg xmlns="http://www.w3.org/2000/svg" hidden xmlns:xlink="http://www.w3.org/1999/xlink">
       <defs>
@@ -121,9 +188,23 @@
           <path d="M29.696 13.696h-14.688l4.576-4.576c0.864-0.864 0.864-2.336 0-3.232-0.864-0.864-2.336-0.864-3.232 0l-8.448 8.48c-0.864 0.864-0.864 2.336 0 3.232l8.448 8.448c0.448 0.448 1.056 0.672 1.632 0.672s1.184-0.224 1.632-0.672c0.864-0.864 0.864-2.336 0-3.232l-4.608-4.576h14.688c1.248 0 2.304-1.024 2.304-2.304s-1.024-2.24-2.304-2.24z"></path>
           <path d="M2.304 5.248c-1.248 0-2.304 1.024-2.304 2.304v16.928c0 1.248 1.024 2.304 2.304 2.304s2.304-1.024 2.304-2.304v-16.928c-0.064-1.28-1.056-2.304-2.304-2.304z"></path>
         </symbol>
+        
+        
       </defs>
     </svg>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
-    <script src="./scripts/script.js"></script>
+    <script src="script.js"></script>
+    <script>
+      const toggle = document.getElementById('toggle');
+      const status = document.getElementById('status');
+
+      toggle.addEventListener('change', (event) => {
+        if (event.target.checked) {
+          status.innerText = '😎';
+        } else {
+          status.innerText = '🙂';
+        }
+      });
+    </script>
   </body>
 </html>
