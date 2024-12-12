@@ -1,130 +1,211 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vue Music Player</title>
-  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
-</head>
-<body>
-  <div id="app">
-    <!-- Search Bar -->
-    <input v-model="searchQuery" @input="searchSongs" placeholder="Search for songs..." />
-
-    <!-- Search Results -->
-    <ul>
-      <li v-for="(track, index) in searchResults" :key="index" @click="selectTrack(track)">
-        <img :src="track.cover" alt="cover" style="width: 50px; height: 50px;" />
-        <div>{{ track.name }} - {{ track.artist }}</div>
-      </li>
-    </ul>
-
-    <!-- Player Controls -->
-    <div v-if="currentTrack">
-      <img :src="currentTrack.cover" alt="cover" style="width: 100px; height: 100px;" />
-      <div>{{ currentTrack.name }} - {{ currentTrack.artist }}</div>
-      <audio ref="audio" v-if="audio" :src="currentTrack.source" controls></audio>
-      <div>
-        <button @click="prevTrack">Previous</button>
-        <button @click="play">{{ isTimerPlaying ? 'Pause' : 'Play' }}</button>
-        <button @click="nextTrack">Next</button>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    new Vue({
-      el: "#app",
-      data() {
-        return {
-          audio: null,
-          searchQuery: '',
-          searchResults: [],
-          currentTrack: null,
-          currentTrackIndex: 0,
-          isTimerPlaying: false,
-          tracks: [
-            {
-              name: "Aankhon Se Tune",
-              artist: "Kumar Sanu, Alka Yagnik",
-              cover: "https://raw.githubusercontent.com/KEX001/Mini-player/master/img/1.jpg",
-              source: "https://raw.githubusercontent.com/KEX001/Mini-player/master/mp3/1.mp3"
-            },
-            // Add more predefined tracks here...
-          ]
-        };
-      },
-      methods: {
-        searchSongs() {
-          if (this.searchQuery.trim() === '') {
-            this.searchResults = [];
-            return;
-          }
-
-          // Replace with actual API call (e.g., Spotify, YouTube API)
-          fetch(`https://api.example.com/search?q=${this.searchQuery}`)
-            .then(response => response.json())
-            .then(data => {
-              // Assuming the API returns an array of song objects
-              this.searchResults = data.results.map(song => ({
-                name: song.name,
-                artist: song.artist,
-                cover: song.coverImage,
-                source: song.audioUrl
-              }));
-            })
-            .catch(error => console.error("Error fetching songs:", error));
+new Vue({
+  el: "#app",
+  data() {
+    return {
+      audio: null,
+      circleLeft: null,
+      barWidth: null,
+      duration: null,
+      currentTime: null,
+      isTimerPlaying: false,
+      tracks: [
+        {
+          name: "Aankhon Se Tune",
+          artist: "Kumar Sanu, Alka Yagnik",
+          cover: "https://raw.githubusercontent.com/KEX001/Mini-player/master/img/1.jpg",
+          source: "https://raw.githubusercontent.com/KEX001/Mini-player/master/mp3/1.mp3",
+          url: "https://t.me/ll_KEX_ll",
+          favorited: false
         },
-        selectTrack(track) {
-          this.currentTrack = track;
-          this.audio = new Audio(track.source);
-          this.audio.play();
-          this.isTimerPlaying = true;
+        {
+          name: "Bade Achhe Lagte",
+          artist: "Amit Kumar",
+          cover: "https://raw.githubusercontent.com/KEX001/Mini-player/master/img/2.jpg",
+          source: "https://raw.githubusercontent.com/KEX001/Mini-player/master/mp3/2.mp3",
+          url: "https://t.me/ll_KEX_ll",
+          favorited: true
         },
-        play() {
-          if (this.audio.paused) {
-            this.audio.play();
-            this.isTimerPlaying = true;
-          } else {
-            this.audio.pause();
-            this.isTimerPlaying = false;
-          }
+        {
+          name: "Ek Pyar Ka Naghma",
+          artist: "Sachin Gupta",
+          cover: "https://raw.githubusercontent.com/KEX001/Mini-player/master/img/3.jpg",
+          source: "https://raw.githubusercontent.com/KEX001/Mini-player/master/mp3/3.mp3",
+          url: "https://t.me/ll_KEX_ll",
+          favorited: false
         },
-        prevTrack() {
-          if (this.currentTrackIndex > 0) {
-            this.currentTrackIndex--;
-          } else {
-            this.currentTrackIndex = this.tracks.length - 1;
-          }
-          this.currentTrack = this.tracks[this.currentTrackIndex];
-          this.resetPlayer();
+        {
+          name: "Ek Ladki Bheegi Bhagi Si",
+          artist: "Kishore Kumar",
+          cover: "https://raw.githubusercontent.com/KEX001/Mini-player/master/img/4.jpg",
+          source: "https://raw.githubusercontent.com/KEX001/Mini-player/master/mp3/4.mp3",
+          url: "https://t.me/ll_KEX_ll",
+          favorited: false
         },
-        nextTrack() {
-          if (this.currentTrackIndex < this.tracks.length - 1) {
-            this.currentTrackIndex++;
-          } else {
-            this.currentTrackIndex = 0;
-          }
-          this.currentTrack = this.tracks[this.currentTrackIndex];
-          this.resetPlayer();
+        {
+          name: "Gali Me Aaj Chand Nikla",
+          artist: "Alka Yagnik",
+          cover: "https://raw.githubusercontent.com/KEX001/Mini-player/master/img/5.jpg",
+          source: "https://raw.githubusercontent.com/KEX001/Mini-player/master/mp3/5.mp3",
+          url: "https://t.me/ll_KEX_ll",
+          favorited: true
         },
-        resetPlayer() {
-          this.audio.currentTime = 0;
-          this.audio.src = this.currentTrack.source;
-          setTimeout(() => {
-            if (this.isTimerPlaying) {
-              this.audio.play();
-            } else {
-              this.audio.pause();
-            }
-          }, 300);
+        {
+          name: "Mere Mehboob Qayamat Hogi",
+          artist: "Sachin Gupta",
+          cover: "https://raw.githubusercontent.com/KEX001/Mini-player/master/img/6.jpg",
+          source: "https://raw.githubusercontent.com/KEX001/Mini-player/master/mp3/6.mp3",
+          url: "https://t.me/ll_KEX_ll",
+          favorited: false
+        },
+        {
+          name: "O Mere Dil Ke Chain",
+          artist: "Kishore Kumar",
+          cover: "https://raw.githubusercontent.com/KEX001/Mini-player/master/img/7.jpg",
+          source: "https://raw.githubusercontent.com/KEX001/Mini-player/master/mp3/7.mp3",
+          url: "https://t.me/ll_KEX_ll",
+          favorited: true
+        },
+        {
+          name: "Yeh Raaten Yeh Mausam",
+          artist: "Sachin Gupta",
+          cover: "https://raw.githubusercontent.com/KEX001/Mini-player/master/img/8.jpg",
+          source: "https://raw.githubusercontent.com/KEX001/Mini-player/master/mp3/8.mp3",
+          url: "https://t.me/ll_KEX_ll",
+          favorited: false
+        },
+        {
+          name: "Yeh Sham Mastani",
+          artist: "Kishore Kumar",
+          cover: "https://raw.githubusercontent.com/KEX001/Mini-player/master/img/9.jpg",
+          source: "https://raw.githubusercontent.com/KEX001/Mini-player/master/mp3/9.mp3",
+          url: "https://t.me/ll_KEX_ll",
+          favorited: false
         }
-      },
-      created() {
-        this.currentTrack = this.tracks[0];
-        this.audio = new Audio(this.currentTrack.source);
+      ],
+      currentTrack: null,
+      currentTrackIndex: 0,
+      transitionName: null
+    };
+  },
+  methods: {
+    play() {
+      if (this.audio.paused) {
+        this.audio.play();
+        this.isTimerPlaying = true;
+      } else {
+        this.audio.pause();
+        this.isTimerPlaying = false;
       }
-    });
-  </script>
-</body>
-</html>
+    },
+    generateTime() {
+      let width = (100 / this.audio.duration) * this.audio.currentTime;
+      this.barWidth = width + "%";
+      this.circleLeft = width + "%";
+      let durmin = Math.floor(this.audio.duration / 60);
+      let dursec = Math.floor(this.audio.duration - durmin * 60);
+      let curmin = Math.floor(this.audio.currentTime / 60);
+      let cursec = Math.floor(this.audio.currentTime - curmin * 60);
+      if (durmin < 10) {
+        durmin = "0" + durmin;
+      }
+      if (dursec < 10) {
+        dursec = "0" + dursec;
+      }
+      if (curmin < 10) {
+        curmin = "0" + curmin;
+      }
+      if (cursec < 10) {
+        cursec = "0" + cursec;
+      }
+      this.duration = durmin + ":" + dursec;
+      this.currentTime = curmin + ":" + cursec;
+    },
+    updateBar(x) {
+      let progress = this.$refs.progress;
+      let maxduration = this.audio.duration;
+      let position = x - progress.offsetLeft;
+      let percentage = (100 * position) / progress.offsetWidth;
+      if (percentage > 100) {
+        percentage = 100;
+      }
+      if (percentage < 0) {
+        percentage = 0;
+      }
+      this.barWidth = percentage + "%";
+      this.circleLeft = percentage + "%";
+      this.audio.currentTime = (maxduration * percentage) / 100;
+      this.audio.play();
+    },
+    clickProgress(e) {
+      this.isTimerPlaying = true;
+      this.audio.pause();
+      this.updateBar(e.pageX);
+    },
+    prevTrack() {
+      this.transitionName = "scale-in";
+      this.isShowCover = false;
+      if (this.currentTrackIndex > 0) {
+        this.currentTrackIndex--;
+      } else {
+        this.currentTrackIndex = this.tracks.length - 1;
+      }
+      this.currentTrack = this.tracks[this.currentTrackIndex];
+      this.resetPlayer();
+    },
+    nextTrack() {
+      this.transitionName = "scale-out";
+      this.isShowCover = false;
+      if (this.currentTrackIndex < this.tracks.length - 1) {
+        this.currentTrackIndex++;
+      } else {
+        this.currentTrackIndex = 0;
+      }
+      this.currentTrack = this.tracks[this.currentTrackIndex];
+      this.resetPlayer();
+    },
+    resetPlayer() {
+      this.barWidth = 0;
+      this.circleLeft = 0;
+      this.audio.currentTime = 0;
+      this.audio.src = this.currentTrack.source;
+      setTimeout(() => {
+        if(this.isTimerPlaying) {
+          this.audio.play();
+        } else {
+          this.audio.pause();
+        }
+      }, 300);
+    },
+    favorite() {
+      this.tracks[this.currentTrackIndex].favorited = !this.tracks[
+        this.currentTrackIndex
+      ].favorited;
+    }
+  },
+  created() {
+    let vm = this;
+    this.currentTrack = this.tracks[0];
+    this.audio = new Audio();
+    this.audio.src = this.currentTrack.source;
+    this.audio.ontimeupdate = function() {
+      vm.generateTime();
+    };
+    this.audio.onloadedmetadata = function() {
+      vm.generateTime();
+    };
+    this.audio.onended = function() {
+      vm.nextTrack();
+      this.isTimerPlaying = true;
+    };
+
+    // this is optional (for preload covers)
+    for (let index = 0; index < this.tracks.length; index++) {
+      const element = this.tracks[index];
+      let link = document.createElement('link');
+      link.rel = "prefetch";
+      link.href = element.cover;
+      link.as = "image"
+      document.head.appendChild(link)
+    }
+  }
+});
