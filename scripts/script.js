@@ -34,13 +34,15 @@ new Vue({
           favorited: false
         }
       ],
-      playlists: [], // Array to store playlists
-      currentPlaylist: null, // Currently active playlist
-      showPlaylists: false, // Toggle playlists display
+      playlists: [],
+      currentPlaylist: null,
+      showPlaylists: false,
+      currentTrackIndex: 0, // Track index to manage playback
     };
   },
   methods: {
     playTrack(index) {
+      this.currentTrackIndex = index;
       let track = this.tracks[index];
       this.audio.src = track.source;
       this.audio.play();
@@ -54,21 +56,53 @@ new Vue({
       }
       this.isTimerPlaying = !this.isTimerPlaying;
     },
+    nextTrack() {
+      if (this.currentPlaylist) {
+        let playlist = this.playlists.find(p => p.name === this.currentPlaylist);
+        if (playlist) {
+          this.currentTrackIndex = (this.currentTrackIndex + 1) % playlist.tracks.length;
+          let track = playlist.tracks[this.currentTrackIndex];
+          this.audio.src = track.source;
+          this.audio.play();
+        }
+      } else {
+        this.currentTrackIndex = (this.currentTrackIndex + 1) % this.tracks.length;
+        let track = this.tracks[this.currentTrackIndex];
+        this.audio.src = track.source;
+        this.audio.play();
+      }
+    },
+    previousTrack() {
+      if (this.currentPlaylist) {
+        let playlist = this.playlists.find(p => p.name === this.currentPlaylist);
+        if (playlist) {
+          this.currentTrackIndex =
+            (this.currentTrackIndex - 1 + playlist.tracks.length) % playlist.tracks.length;
+          let track = playlist.tracks[this.currentTrackIndex];
+          this.audio.src = track.source;
+          this.audio.play();
+        }
+      } else {
+        this.currentTrackIndex =
+          (this.currentTrackIndex - 1 + this.tracks.length) % this.tracks.length;
+        let track = this.tracks[this.currentTrackIndex];
+        this.audio.src = track.source;
+        this.audio.play();
+      }
+    },
     createPlaylist(name) {
       if (name && !this.playlists.find(playlist => playlist.name === name)) {
         this.playlists.push({ name, tracks: [] });
         localStorage.setItem("playlists", JSON.stringify(this.playlists));
-        alert(`Playlist '${name}' created!`);
       }
     },
     addToPlaylist(playlistName, trackIndex) {
       let playlist = this.playlists.find(p => p.name === playlistName);
       if (playlist) {
         let track = this.tracks[trackIndex];
-        if (!playlist.tracks.includes(track)) {
+        if (!playlist.tracks.find(t => t.source === track.source)) {
           playlist.tracks.push(track);
           localStorage.setItem("playlists", JSON.stringify(this.playlists));
-          alert(`Track added to playlist '${playlistName}'!`);
         }
       }
     },
@@ -79,8 +113,10 @@ new Vue({
       }
     },
     playFromPlaylist(playlistName, trackIndex) {
+      this.currentPlaylist = playlistName;
       let playlist = this.playlists.find(p => p.name === playlistName);
       if (playlist) {
+        this.currentTrackIndex = trackIndex;
         let track = playlist.tracks[trackIndex];
         this.audio.src = track.source;
         this.audio.play();
@@ -107,6 +143,7 @@ new Vue({
 
     this.audio.onended = () => {
       this.isTimerPlaying = false;
+      this.nextTrack();
     };
   },
 });
