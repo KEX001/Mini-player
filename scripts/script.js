@@ -13,7 +13,7 @@ new Vue({
           name: "Aankhon Se Tune",
           artist: "Kumar Sanu, Alka Yagnik",
           cover: "https://raw.githubusercontent.com/muhammederdem/mini-player/master/img/1.jpg",
-          source: "https://raw.githubusercontent.com/muhammederdem/mini-player/master/mp3/1.m4a",
+          source: "https://raw.githubusercontent.com/muhammederdem/mini-player/master/mp3/1.mp3",
           url: "https://t.me/ll_KEX_ll",
           favorited: false
         },
@@ -21,7 +21,7 @@ new Vue({
           name: "Bade Achhe Lagte",
           artist: "Amit Kumar",
           cover: "https://raw.githubusercontent.com/muhammederdem/mini-player/master/img/2.jpg",
-          source: "https://raw.githubusercontent.com/muhammederdem/mini-player/master/mp3/2.m4a",
+          source: "https://raw.githubusercontent.com/muhammederdem/mini-player/master/mp3/2.mp3",
           url: "https://t.me/ll_KEX_ll",
           favorited: true
         },
@@ -29,7 +29,7 @@ new Vue({
           name: "Ek Pyar Ka Naghma",
           artist: "Sachin Gupta",
           cover: "https://raw.githubusercontent.com/muhammederdem/mini-player/master/img/3.jpg",
-          source: "https://raw.githubusercontent.com/muhammederdem/mini-player/master/mp3/3.m4a",
+          source: "https://raw.githubusercontent.com/muhammederdem/mini-player/master/mp3/3.mp3",
           url: "https://t.me/ll_KEX_ll",
           favorited: false
         },
@@ -37,7 +37,7 @@ new Vue({
           name: "Ek Ladki Bheegi Bhagi Si",
           artist: "Kishore Kumar",
           cover: "https://raw.githubusercontent.com/muhammederdem/mini-player/master/img/4.jpg",
-          source: "https://raw.githubusercontent.com/muhammederdem/mini-player/master/mp3/4.m4a",
+          source: "https://raw.githubusercontent.com/muhammederdem/mini-player/master/mp3/4.mp3",
           url: "https://t.me/ll_KEX_ll",
           favorited: false
         },
@@ -45,7 +45,7 @@ new Vue({
           name: "Gali Me Aaj Chand Nikla",
           artist: "Alka Yagnik",
           cover: "https://raw.githubusercontent.com/muhammederdem/mini-player/master/img/5.jpg",
-          source: "https://raw.githubusercontent.com/muhammederdem/mini-player/master/mp3/5.m4a",
+          source: "https://raw.githubusercontent.com/muhammederdem/mini-player/master/mp3/5.mp3",
           url: "https://t.me/ll_KEX_ll",
           favorited: true
         },
@@ -53,7 +53,7 @@ new Vue({
           name: "Mere Mehboob Qayamat Hogi",
           artist: "Sachin Gupta",
           cover: "https://raw.githubusercontent.com/muhammederdem/mini-player/master/img/6.jpg",
-          source: "https://raw.githubusercontent.com/muhammederdem/mini-player/master/mp3/6.m4a",
+          source: "https://raw.githubusercontent.com/muhammederdem/mini-player/master/mp3/6.mp3",
           url: "https://t.me/ll_KEX_ll",
           favorited: false
         },
@@ -61,7 +61,7 @@ new Vue({
           name: "O Mere Dil Ke Chain",
           artist: "Kishore Kumar",
           cover: "https://raw.githubusercontent.com/muhammederdem/mini-player/master/img/7.jpg",
-          source: "https://raw.githubusercontent.com/muhammederdem/mini-player/master/mp3/7.m4a",
+          source: "https://raw.githubusercontent.com/muhammederdem/mini-player/master/mp3/7.mp3",
           url: "https://t.me/ll_KEX_ll",
           favorited: true
         },
@@ -69,7 +69,7 @@ new Vue({
           name: "Yeh Raaten Yeh Mausam",
           artist: "Sachin Gupta",
           cover: "https://raw.githubusercontent.com/muhammederdem/mini-player/master/img/8.jpg",
-          source: "https://raw.githubusercontent.com/muhammederdem/mini-player/master/mp3/8.m4a",
+          source: "https://raw.githubusercontent.com/muhammederdem/mini-player/master/mp3/8.mp3",
           url: "https://t.me/ll_KEX_ll",
           favorited: false
         },
@@ -77,7 +77,7 @@ new Vue({
           name: "Yeh Sham Mastani",
           artist: "Kishore Kumar",
           cover: "https://raw.githubusercontent.com/muhammederdem/mini-player/master/img/9.jpg",
-          source: "https://raw.githubusercontent.com/muhammederdem/mini-player/master/mp3/9.m4a",
+          source: "https://raw.githubusercontent.com/muhammederdem/mini-player/master/mp3/9.mp3",
           url: "https://t.me/ll_KEX_ll",
           favorited: false
         }
