@@ -32,180 +32,51 @@ new Vue({
           source: "https://raw.githubusercontent.com/KEX001/Mini-player/master/mp3/3.mp3",
           url: "https://t.me/ll_KEX_ll",
           favorited: false
-        },
-        {
-          name: "Ek Ladki Bheegi Bhagi Si",
-          artist: "Kishore Kumar",
-          cover: "https://raw.githubusercontent.com/KEX001/Mini-player/master/img/4.jpg",
-          source: "https://raw.githubusercontent.com/KEX001/Mini-player/master/mp3/4.mp3",
-          url: "https://t.me/ll_KEX_ll",
-          favorited: false
-        },
-        {
-          name: "Gali Me Aaj Chand Nikla",
-          artist: "Alka Yagnik",
-          cover: "https://raw.githubusercontent.com/KEX001/Mini-player/master/img/5.jpg",
-          source: "https://raw.githubusercontent.com/KEX001/Mini-player/master/mp3/5.mp3",
-          url: "https://t.me/ll_KEX_ll",
-          favorited: true
-        },
-        {
-          name: "Mere Mehboob Qayamat Hogi",
-          artist: "Sachin Gupta",
-          cover: "https://raw.githubusercontent.com/KEX001/Mini-player/master/img/6.jpg",
-          source: "https://raw.githubusercontent.com/KEX001/Mini-player/master/mp3/6.mp3",
-          url: "https://t.me/ll_KEX_ll",
-          favorited: false
-        },
-        {
-          name: "O Mere Dil Ke Chain",
-          artist: "Kishore Kumar",
-          cover: "https://raw.githubusercontent.com/KEX001/Mini-player/master/img/7.jpg",
-          source: "https://raw.githubusercontent.com/KEX001/Mini-player/master/mp3/7.mp3",
-          url: "https://t.me/ll_KEX_ll",
-          favorited: true
-        },
-        {
-          name: "Yeh Raaten Yeh Mausam",
-          artist: "Sachin Gupta",
-          cover: "https://raw.githubusercontent.com/KEX001/Mini-player/master/img/8.jpg",
-          source: "https://raw.githubusercontent.com/KEX001/Mini-player/master/mp3/8.mp3",
-          url: "https://t.me/ll_KEX_ll",
-          favorited: false
-        },
-        {
-          name: "Yeh Sham Mastani",
-          artist: "Kishore Kumar",
-          cover: "https://raw.githubusercontent.com/KEX001/Mini-player/master/img/9.jpg",
-          source: "https://raw.githubusercontent.com/KEX001/Mini-player/master/mp3/9.mp3",
-          url: "https://t.me/ll_KEX_ll",
-          favorited: false
         }
       ],
-      currentTrack: null,
-      currentTrackIndex: 0,
-      transitionName: null
+      playlists: [], // Array to store playlists
+      currentPlaylist: null, // Currently active playlist
     };
   },
   methods: {
-    play() {
-      if (this.audio.paused) {
-        this.audio.play();
-        this.isTimerPlaying = true;
-      } else {
-        this.audio.pause();
-        this.isTimerPlaying = false;
-      }
-    },
-    generateTime() {
-      let width = (100 / this.audio.duration) * this.audio.currentTime;
-      this.barWidth = width + "%";
-      this.circleLeft = width + "%";
-      let durmin = Math.floor(this.audio.duration / 60);
-      let dursec = Math.floor(this.audio.duration - durmin * 60);
-      let curmin = Math.floor(this.audio.currentTime / 60);
-      let cursec = Math.floor(this.audio.currentTime - curmin * 60);
-      if (durmin < 10) {
-        durmin = "0" + durmin;
-      }
-      if (dursec < 10) {
-        dursec = "0" + dursec;
-      }
-      if (curmin < 10) {
-        curmin = "0" + curmin;
-      }
-      if (cursec < 10) {
-        cursec = "0" + cursec;
-      }
-      this.duration = durmin + ":" + dursec;
-      this.currentTime = curmin + ":" + cursec;
-    },
-    updateBar(x) {
-      let progress = this.$refs.progress;
-      let maxduration = this.audio.duration;
-      let position = x - progress.offsetLeft;
-      let percentage = (100 * position) / progress.offsetWidth;
-      if (percentage > 100) {
-        percentage = 100;
-      }
-      if (percentage < 0) {
-        percentage = 0;
-      }
-      this.barWidth = percentage + "%";
-      this.circleLeft = percentage + "%";
-      this.audio.currentTime = (maxduration * percentage) / 100;
+    playTrack(index) {
+      let track = this.tracks[index];
+      this.audio.src = track.source;
       this.audio.play();
     },
-    clickProgress(e) {
-      this.isTimerPlaying = true;
-      this.audio.pause();
-      this.updateBar(e.pageX);
-    },
-    prevTrack() {
-      this.transitionName = "scale-in";
-      this.isShowCover = false;
-      if (this.currentTrackIndex > 0) {
-        this.currentTrackIndex--;
-      } else {
-        this.currentTrackIndex = this.tracks.length - 1;
+    createPlaylist(name) {
+      if (name && !this.playlists.find(playlist => playlist.name === name)) {
+        this.playlists.push({ name, tracks: [] });
+        localStorage.setItem("playlists", JSON.stringify(this.playlists));
       }
-      this.currentTrack = this.tracks[this.currentTrackIndex];
-      this.resetPlayer();
     },
-    nextTrack() {
-      this.transitionName = "scale-out";
-      this.isShowCover = false;
-      if (this.currentTrackIndex < this.tracks.length - 1) {
-        this.currentTrackIndex++;
-      } else {
-        this.currentTrackIndex = 0;
-      }
-      this.currentTrack = this.tracks[this.currentTrackIndex];
-      this.resetPlayer();
-    },
-    resetPlayer() {
-      this.barWidth = 0;
-      this.circleLeft = 0;
-      this.audio.currentTime = 0;
-      this.audio.src = this.currentTrack.source;
-      setTimeout(() => {
-        if(this.isTimerPlaying) {
-          this.audio.play();
-        } else {
-          this.audio.pause();
+    addToPlaylist(playlistName, trackIndex) {
+      let playlist = this.playlists.find(p => p.name === playlistName);
+      if (playlist) {
+        let track = this.tracks[trackIndex];
+        if (!playlist.tracks.includes(track)) {
+          playlist.tracks.push(track);
+          localStorage.setItem("playlists", JSON.stringify(this.playlists));
         }
-      }, 300);
+      }
     },
-    favorite() {
-      this.tracks[this.currentTrackIndex].favorited = !this.tracks[
-        this.currentTrackIndex
-      ].favorited;
-    }
+    loadPlaylists() {
+      let storedPlaylists = localStorage.getItem("playlists");
+      if (storedPlaylists) {
+        this.playlists = JSON.parse(storedPlaylists);
+      }
+    },
+    playFromPlaylist(playlistName, trackIndex) {
+      let playlist = this.playlists.find(p => p.name === playlistName);
+      if (playlist) {
+        let track = playlist.tracks[trackIndex];
+        this.audio.src = track.source;
+        this.audio.play();
+      }
+    },
   },
-  created() {
-    let vm = this;
-    this.currentTrack = this.tracks[0];
+  mounted() {
     this.audio = new Audio();
-    this.audio.src = this.currentTrack.source;
-    this.audio.ontimeupdate = function() {
-      vm.generateTime();
-    };
-    this.audio.onloadedmetadata = function() {
-      vm.generateTime();
-    };
-    this.audio.onended = function() {
-      vm.nextTrack();
-      this.isTimerPlaying = true;
-    };
-
-    // this is optional (for preload covers)
-    for (let index = 0; index < this.tracks.length; index++) {
-      const element = this.tracks[index];
-      let link = document.createElement('link');
-      link.rel = "prefetch";
-      link.href = element.cover;
-      link.as = "image"
-      document.head.appendChild(link)
-    }
-  }
+    this.loadPlaylists();
+  },
 });
