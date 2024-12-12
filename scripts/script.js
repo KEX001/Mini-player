@@ -8,153 +8,204 @@ new Vue({
       duration: null,
       currentTime: null,
       isTimerPlaying: false,
-      tracks: [],
-      userPlaylists: [],
-      likedTracks: [],
-      currentPlaylistTracks: [],
+      tracks: [
+        {
+          name: "Aankhon Se Tune",
+          artist: "Kumar Sanu, Alka Yagnik",
+          cover: "https://raw.githubusercontent.com/KEX001/Mini-player/master/img/1.jpg",
+          source: "https://raw.githubusercontent.com/KEX001/Mini-player/master/mp3/1.mp3",
+          url: "https://t.me/ll_KEX_ll",
+          favorited: false
+        },
+        {
+          name: "Bade Achhe Lagte",
+          artist: "Amit Kumar",
+          cover: "https://raw.githubusercontent.com/KEX001/Mini-player/master/img/2.jpg",
+          source: "https://raw.githubusercontent.com/KEX001/Mini-player/master/mp3/2.mp3",
+          url: "https://t.me/ll_KEX_ll",
+          favorited: true
+        },
+        {
+          name: "Ek Pyar Ka Naghma",
+          artist: "Sachin Gupta",
+          cover: "https://raw.githubusercontent.com/KEX001/Mini-player/master/img/3.jpg",
+          source: "https://raw.githubusercontent.com/KEX001/Mini-player/master/mp3/3.mp3",
+          url: "https://t.me/ll_KEX_ll",
+          favorited: false
+        },
+        {
+          name: "Ek Ladki Bheegi Bhagi Si",
+          artist: "Kishore Kumar",
+          cover: "https://raw.githubusercontent.com/KEX001/Mini-player/master/img/4.jpg",
+          source: "https://raw.githubusercontent.com/KEX001/Mini-player/master/mp3/4.mp3",
+          url: "https://t.me/ll_KEX_ll",
+          favorited: false
+        },
+        {
+          name: "Gali Me Aaj Chand Nikla",
+          artist: "Alka Yagnik",
+          cover: "https://raw.githubusercontent.com/KEX001/Mini-player/master/img/5.jpg",
+          source: "https://raw.githubusercontent.com/KEX001/Mini-player/master/mp3/5.mp3",
+          url: "https://t.me/ll_KEX_ll",
+          favorited: true
+        },
+        {
+          name: "Mere Mehboob Qayamat Hogi",
+          artist: "Sachin Gupta",
+          cover: "https://raw.githubusercontent.com/KEX001/Mini-player/master/img/6.jpg",
+          source: "https://raw.githubusercontent.com/KEX001/Mini-player/master/mp3/6.mp3",
+          url: "https://t.me/ll_KEX_ll",
+          favorited: false
+        },
+        {
+          name: "O Mere Dil Ke Chain",
+          artist: "Kishore Kumar",
+          cover: "https://raw.githubusercontent.com/KEX001/Mini-player/master/img/7.jpg",
+          source: "https://raw.githubusercontent.com/KEX001/Mini-player/master/mp3/7.mp3",
+          url: "https://t.me/ll_KEX_ll",
+          favorited: true
+        },
+        {
+          name: "Yeh Raaten Yeh Mausam",
+          artist: "Sachin Gupta",
+          cover: "https://raw.githubusercontent.com/KEX001/Mini-player/master/img/8.jpg",
+          source: "https://raw.githubusercontent.com/KEX001/Mini-player/master/mp3/8.mp3",
+          url: "https://t.me/ll_KEX_ll",
+          favorited: false
+        },
+        {
+          name: "Yeh Sham Mastani",
+          artist: "Kishore Kumar",
+          cover: "https://raw.githubusercontent.com/KEX001/Mini-player/master/img/9.jpg",
+          source: "https://raw.githubusercontent.com/KEX001/Mini-player/master/mp3/9.mp3",
+          url: "https://t.me/ll_KEX_ll",
+          favorited: false
+        }
+      ],
+      currentTrack: null,
       currentTrackIndex: 0,
-      isAuthenticated: false,
-      userName: "",
-      userProfilePicture: "",
-      spotifyApiToken: "",
+      transitionName: null
     };
   },
   methods: {
-    async authenticateSpotify() {
-      const clientId = "YOUR_SPOTIFY_CLIENT_ID";
-      const redirectUri = "YOUR_REDIRECT_URI";
-      const scopes = "user-library-read playlist-read-private";
-      const authUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${encodeURIComponent(scopes)}`;
-
-      window.location.href = authUrl;
-    },
-    async fetchSpotifyUserData() {
-      if (!this.spotifyApiToken) return;
-
-      try {
-        const userResponse = await fetch("https://api.spotify.com/v1/me", {
-          headers: { Authorization: `Bearer ${this.spotifyApiToken}` },
-        });
-        const userData = await userResponse.json();
-
-        this.isAuthenticated = true;
-        this.userName = userData.display_name;
-        this.userProfilePicture = userData.images[0]?.url || "";
-
-        await this.fetchUserPlaylists();
-        await this.fetchLikedTracks();
-      } catch (error) {
-        console.error("Error fetching user data: ", error);
-      }
-    },
-    async fetchUserPlaylists() {
-      try {
-        const response = await fetch("https://api.spotify.com/v1/me/playlists", {
-          headers: { Authorization: `Bearer ${this.spotifyApiToken}` },
-        });
-        const data = await response.json();
-
-        this.userPlaylists = data.items.map((playlist) => ({
-          name: playlist.name,
-          id: playlist.id,
-          image: playlist.images[0]?.url || "",
-        }));
-      } catch (error) {
-        console.error("Error fetching playlists: ", error);
-      }
-    },
-    async fetchLikedTracks() {
-      try {
-        const response = await fetch("https://api.spotify.com/v1/me/tracks", {
-          headers: { Authorization: `Bearer ${this.spotifyApiToken}` },
-        });
-        const data = await response.json();
-
-        this.likedTracks = data.items.map((item) => ({
-          name: item.track.name,
-          artist: item.track.artists.map((a) => a.name).join(", "),
-          cover: item.track.album.images[0]?.url || "",
-          source: item.track.preview_url,
-        }));
-      } catch (error) {
-        console.error("Error fetching liked tracks: ", error);
-      }
-    },
-    async playPlaylist(playlistId) {
-      try {
-        const response = await fetch(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {
-          headers: { Authorization: `Bearer ${this.spotifyApiToken}` },
-        });
-        const data = await response.json();
-
-        this.currentPlaylistTracks = data.items.map((item) => ({
-          name: item.track.name,
-          artist: item.track.artists.map((a) => a.name).join(", "),
-          cover: item.track.album.images[0]?.url || "",
-          source: item.track.preview_url,
-        }));
-
-        this.playTrack(0);
-      } catch (error) {
-        console.error("Error playing playlist: ", error);
-      }
-    },
-    playTrack(index) {
-      if (this.currentPlaylistTracks.length > 0) {
-        this.currentTrackIndex = index;
-        const track = this.currentPlaylistTracks[index];
-        this.audio.src = track.source;
+    play() {
+      if (this.audio.paused) {
         this.audio.play();
         this.isTimerPlaying = true;
+      } else {
+        this.audio.pause();
+        this.isTimerPlaying = false;
       }
     },
-    togglePlay() {
-      if (this.isTimerPlaying) {
-        this.audio.pause();
-      } else {
-        this.audio.play();
+    generateTime() {
+      let width = (100 / this.audio.duration) * this.audio.currentTime;
+      this.barWidth = width + "%";
+      this.circleLeft = width + "%";
+      let durmin = Math.floor(this.audio.duration / 60);
+      let dursec = Math.floor(this.audio.duration - durmin * 60);
+      let curmin = Math.floor(this.audio.currentTime / 60);
+      let cursec = Math.floor(this.audio.currentTime - curmin * 60);
+      if (durmin < 10) {
+        durmin = "0" + durmin;
       }
-      this.isTimerPlaying = !this.isTimerPlaying;
+      if (dursec < 10) {
+        dursec = "0" + dursec;
+      }
+      if (curmin < 10) {
+        curmin = "0" + curmin;
+      }
+      if (cursec < 10) {
+        cursec = "0" + cursec;
+      }
+      this.duration = durmin + ":" + dursec;
+      this.currentTime = curmin + ":" + cursec;
+    },
+    updateBar(x) {
+      let progress = this.$refs.progress;
+      let maxduration = this.audio.duration;
+      let position = x - progress.offsetLeft;
+      let percentage = (100 * position) / progress.offsetWidth;
+      if (percentage > 100) {
+        percentage = 100;
+      }
+      if (percentage < 0) {
+        percentage = 0;
+      }
+      this.barWidth = percentage + "%";
+      this.circleLeft = percentage + "%";
+      this.audio.currentTime = (maxduration * percentage) / 100;
+      this.audio.play();
+    },
+    clickProgress(e) {
+      this.isTimerPlaying = true;
+      this.audio.pause();
+      this.updateBar(e.pageX);
+    },
+    prevTrack() {
+      this.transitionName = "scale-in";
+      this.isShowCover = false;
+      if (this.currentTrackIndex > 0) {
+        this.currentTrackIndex--;
+      } else {
+        this.currentTrackIndex = this.tracks.length - 1;
+      }
+      this.currentTrack = this.tracks[this.currentTrackIndex];
+      this.resetPlayer();
     },
     nextTrack() {
-      if (this.currentPlaylistTracks.length > 0) {
-        this.currentTrackIndex = (this.currentTrackIndex + 1) % this.currentPlaylistTracks.length;
-        this.playTrack(this.currentTrackIndex);
+      this.transitionName = "scale-out";
+      this.isShowCover = false;
+      if (this.currentTrackIndex < this.tracks.length - 1) {
+        this.currentTrackIndex++;
+      } else {
+        this.currentTrackIndex = 0;
       }
+      this.currentTrack = this.tracks[this.currentTrackIndex];
+      this.resetPlayer();
     },
-    previousTrack() {
-      if (this.currentPlaylistTracks.length > 0) {
-        this.currentTrackIndex =
-          (this.currentTrackIndex - 1 + this.currentPlaylistTracks.length) % this.currentPlaylistTracks.length;
-        this.playTrack(this.currentTrackIndex);
-      }
+    resetPlayer() {
+      this.barWidth = 0;
+      this.circleLeft = 0;
+      this.audio.currentTime = 0;
+      this.audio.src = this.currentTrack.source;
+      setTimeout(() => {
+        if(this.isTimerPlaying) {
+          this.audio.play();
+        } else {
+          this.audio.pause();
+        }
+      }, 300);
     },
-  },
-  mounted() {
-    this.audio = new Audio();
-
-    // Extract Spotify token from URL hash if present
-    const hash = window.location.hash;
-    if (hash) {
-      const params = new URLSearchParams(hash.substring(1));
-      this.spotifyApiToken = params.get("access_token");
-      window.location.hash = "";
-      this.fetchSpotifyUserData();
+    favorite() {
+      this.tracks[this.currentTrackIndex].favorited = !this.tracks[
+        this.currentTrackIndex
+      ].favorited;
     }
-
-    this.audio.ontimeupdate = () => {
-      this.currentTime = this.audio.currentTime;
-      this.barWidth = (this.audio.currentTime / this.audio.duration) * 100 + "%";
-      this.circleLeft = this.barWidth;
-    };
-
-    this.audio.onloadedmetadata = () => {
-      this.duration = this.audio.duration;
-    };
-
-    this.audio.onended = () => {
-      this.isTimerPlaying = false;
-      this.nextTrack();
-    };
   },
+  created() {
+    let vm = this;
+    this.currentTrack = this.tracks[0];
+    this.audio = new Audio();
+    this.audio.src = this.currentTrack.source;
+    this.audio.ontimeupdate = function() {
+      vm.generateTime();
+    };
+    this.audio.onloadedmetadata = function() {
+      vm.generateTime();
+    };
+    this.audio.onended = function() {
+      vm.nextTrack();
+      this.isTimerPlaying = true;
+    };
+
+    // this is optional (for preload covers)
+    for (let index = 0; index < this.tracks.length; index++) {
+      const element = this.tracks[index];
+      let link = document.createElement('link');
+      link.rel = "prefetch";
+      link.href = element.cover;
+      link.as = "image"
+      document.head.appendChild(link)
+    }
+  }
 });
