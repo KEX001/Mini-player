@@ -36,6 +36,7 @@ new Vue({
       ],
       playlists: [], // Array to store playlists
       currentPlaylist: null, // Currently active playlist
+      showPlaylists: false, // Toggle playlists display
     };
   },
   methods: {
@@ -43,11 +44,21 @@ new Vue({
       let track = this.tracks[index];
       this.audio.src = track.source;
       this.audio.play();
+      this.isTimerPlaying = true;
+    },
+    togglePlay() {
+      if (this.isTimerPlaying) {
+        this.audio.pause();
+      } else {
+        this.audio.play();
+      }
+      this.isTimerPlaying = !this.isTimerPlaying;
     },
     createPlaylist(name) {
       if (name && !this.playlists.find(playlist => playlist.name === name)) {
         this.playlists.push({ name, tracks: [] });
         localStorage.setItem("playlists", JSON.stringify(this.playlists));
+        alert(`Playlist '${name}' created!`);
       }
     },
     addToPlaylist(playlistName, trackIndex) {
@@ -57,6 +68,7 @@ new Vue({
         if (!playlist.tracks.includes(track)) {
           playlist.tracks.push(track);
           localStorage.setItem("playlists", JSON.stringify(this.playlists));
+          alert(`Track added to playlist '${playlistName}'!`);
         }
       }
     },
@@ -72,11 +84,29 @@ new Vue({
         let track = playlist.tracks[trackIndex];
         this.audio.src = track.source;
         this.audio.play();
+        this.isTimerPlaying = true;
       }
+    },
+    togglePlaylistView() {
+      this.showPlaylists = !this.showPlaylists;
     },
   },
   mounted() {
     this.audio = new Audio();
     this.loadPlaylists();
+
+    this.audio.ontimeupdate = () => {
+      this.currentTime = this.audio.currentTime;
+      this.barWidth = (this.audio.currentTime / this.audio.duration) * 100 + "%";
+      this.circleLeft = this.barWidth;
+    };
+
+    this.audio.onloadedmetadata = () => {
+      this.duration = this.audio.duration;
+    };
+
+    this.audio.onended = () => {
+      this.isTimerPlaying = false;
+    };
   },
 });
