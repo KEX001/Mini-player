@@ -12,72 +12,72 @@ new Vue({
         {
           name: "Aankhon Se Tune",
           artist: "Kumar Sanu, Alka Yagnik",
-          cover: "https://raw.githubusercontent.com/muhammederdem/mini-player/master/img/1.jpg",
-          source: "https://raw.githubusercontent.com/muhammederdem/mini-player/master/mp3/1.mp3",
+          cover: "https://raw.githubusercontent.com/KEX001/Mini-player/master/img/1.jpg",
+          source: "https://raw.githubusercontent.com/KEX001/Mini-player/master/mp3/1.mp3",
           url: "https://t.me/ll_KEX_ll",
           favorited: false
         },
         {
           name: "Bade Achhe Lagte",
           artist: "Amit Kumar",
-          cover: "https://raw.githubusercontent.com/muhammederdem/mini-player/master/img/2.jpg",
-          source: "https://raw.githubusercontent.com/muhammederdem/mini-player/master/mp3/2.mp3",
+          cover: "https://raw.githubusercontent.com/KEX001/Mini-player/master/img/2.jpg",
+          source: "https://raw.githubusercontent.com/KEX001/Mini-player/master/mp3/2.mp3",
           url: "https://t.me/ll_KEX_ll",
           favorited: true
         },
         {
           name: "Ek Pyar Ka Naghma",
           artist: "Sachin Gupta",
-          cover: "https://raw.githubusercontent.com/muhammederdem/mini-player/master/img/3.jpg",
-          source: "https://raw.githubusercontent.com/muhammederdem/mini-player/master/mp3/3.mp3",
+          cover: "https://raw.githubusercontent.com/KEX001/Mini-player/master/img/3.jpg",
+          source: "https://raw.githubusercontent.com/KEX001/Mini-player/master/mp3/3.mp3",
           url: "https://t.me/ll_KEX_ll",
           favorited: false
         },
         {
           name: "Ek Ladki Bheegi Bhagi Si",
           artist: "Kishore Kumar",
-          cover: "https://raw.githubusercontent.com/muhammederdem/mini-player/master/img/4.jpg",
-          source: "https://raw.githubusercontent.com/muhammederdem/mini-player/master/mp3/4.mp3",
+          cover: "https://raw.githubusercontent.com/KEX001/Mini-player/master/img/4.jpg",
+          source: "https://raw.githubusercontent.com/KEX001/Mini-player/master/mp3/4.mp3",
           url: "https://t.me/ll_KEX_ll",
           favorited: false
         },
         {
           name: "Gali Me Aaj Chand Nikla",
           artist: "Alka Yagnik",
-          cover: "https://raw.githubusercontent.com/muhammederdem/mini-player/master/img/5.jpg",
-          source: "https://raw.githubusercontent.com/muhammederdem/mini-player/master/mp3/5.mp3",
+          cover: "https://raw.githubusercontent.com/KEX001/Mini-player/master/img/5.jpg",
+          source: "https://raw.githubusercontent.com/KEX001/Mini-player/master/mp3/5.mp3",
           url: "https://t.me/ll_KEX_ll",
           favorited: true
         },
         {
           name: "Mere Mehboob Qayamat Hogi",
           artist: "Sachin Gupta",
-          cover: "https://raw.githubusercontent.com/muhammederdem/mini-player/master/img/6.jpg",
-          source: "https://raw.githubusercontent.com/muhammederdem/mini-player/master/mp3/6.mp3",
+          cover: "https://raw.githubusercontent.com/KEX001/Mini-player/master/img/6.jpg",
+          source: "https://raw.githubusercontent.com/KEX001/Mini-player/master/mp3/6.mp3",
           url: "https://t.me/ll_KEX_ll",
           favorited: false
         },
         {
           name: "O Mere Dil Ke Chain",
           artist: "Kishore Kumar",
-          cover: "https://raw.githubusercontent.com/muhammederdem/mini-player/master/img/7.jpg",
-          source: "https://raw.githubusercontent.com/muhammederdem/mini-player/master/mp3/7.mp3",
+          cover: "https://raw.githubusercontent.com/KEX001/Mini-player/master/img/7.jpg",
+          source: "https://raw.githubusercontent.com/KEX001/Mini-player/master/mp3/7.mp3",
           url: "https://t.me/ll_KEX_ll",
           favorited: true
         },
         {
           name: "Yeh Raaten Yeh Mausam",
           artist: "Sachin Gupta",
-          cover: "https://raw.githubusercontent.com/muhammederdem/mini-player/master/img/8.jpg",
-          source: "https://raw.githubusercontent.com/muhammederdem/mini-player/master/mp3/8.mp3",
+          cover: "https://raw.githubusercontent.com/KEX001/Mini-player/master/img/8.jpg",
+          source: "https://raw.githubusercontent.com/KEX001/Mini-player/master/mp3/8.mp3",
           url: "https://t.me/ll_KEX_ll",
           favorited: false
         },
         {
           name: "Yeh Sham Mastani",
           artist: "Kishore Kumar",
-          cover: "https://raw.githubusercontent.com/muhammederdem/mini-player/master/img/9.jpg",
-          source: "https://raw.githubusercontent.com/muhammederdem/mini-player/master/mp3/9.mp3",
+          cover: "https://raw.githubusercontent.com/KEX001/Mini-player/master/img/9.jpg",
+          source: "https://raw.githubusercontent.com/KEX001/Mini-player/master/mp3/9.mp3",
           url: "https://t.me/ll_KEX_ll",
           favorited: false
         }
