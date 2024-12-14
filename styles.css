@@ -1,54 +1,146 @@
 /* Player container customization */
 #audio-player {
     background-color: #ffffff;
-    border: 1px solid #d0d8e6;
+    border: 1px solid #ffffff;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    padding: 10px;
+    padding: 10px; /* Reduced padding */
+    max-width: 100%; /* Ensure it doesn't overflow */
+    width: 400px; /* Fixed width for mobile */
+    margin: auto; /* Center the container */
 }
 
-/* Progress bar customization */
+/* Responsive design for smaller screens */
+@media (max-width: 600px) {
+    #audio-player {
+        width: 250px; /* Slightly smaller on smaller screens */
+        padding: 5px 10px; /* Adjust padding for smaller devices */
+    }
+}
+
+
+/* Advanced Progress Bar with Soundwave Effect */
 #progress-bar {
     -webkit-appearance: none;
     width: 100%;
-    height: 5px;
-    background: #d0d8e6;
+    height: 10px;
+    border-radius: 10px;
+    background: linear-gradient(90deg, rgba(20,20,20,1) 0%, rgba(50,50,50,1) 100%);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6), inset 0 2px 4px rgba(255, 255, 255, 0.1);
     outline: none;
-    opacity: 0.7;
-    transition: opacity .2s;
+    position: relative;
 }
 
 #progress-bar::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 15px;
-    height: 15px;
-    background: #4d9eff;
+    width: 30px;
+    height: 30px;
+    background: radial-gradient(circle, rgba(255,255,255,1) 30%, rgba(0,128,255,1) 70%, rgba(0,0,255,1) 100%);
+    border: 2px solid rgba(255, 255, 255, 0.6);
     cursor: pointer;
     border-radius: 50%;
+    box-shadow: 0 8px 15px rgba(0,128,255,0.8), inset 0 0 8px rgba(255,255,255,0.9);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#progress-bar::-webkit-slider-thumb:hover {
+    transform: scale(1.4);
+    box-shadow: 0 10px 20px rgba(0,128,255,0.9), inset 0 0 10px rgba(255,255,255,1);
 }
 
 #progress-bar::-moz-range-thumb {
-    width: 15px;
-    height: 15px;
-    background: #4d9eff;
+    width: 30px;
+    height: 30px;
+    background: radial-gradient(circle, rgba(255,255,255,1) 30%, rgba(0,128,255,1) 70%, rgba(0,0,255,1) 100%);
+    border: 2px solid rgba(255, 255, 255, 0.6);
     cursor: pointer;
     border-radius: 50%;
+    box-shadow: 0 8px 15px rgba(0,128,255,0.8), inset 0 0 8px rgba(255,255,255,0.9);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#progress-bar::-moz-range-thumb:hover {
+    transform: scale(1.4);
+    box-shadow: 0 10px 20px rgba(0,128,255,0.9), inset 0 0 10px rgba(255,255,255,1);
+}
+
+#progress-bar:active::-webkit-slider-thumb {
+    transform: scale(1.6);
+    background: radial-gradient(circle, rgba(255,255,255,1) 20%, rgba(255,0,128,1) 70%, rgba(255,0,0,1) 100%);
+}
+
+#progress-bar:active::-moz-range-thumb {
+    transform: scale(1.6);
+    background: radial-gradient(circle, rgba(255,255,255,1) 20%, rgba(255,0,128,1) 70%, rgba(255,0,0,1) 100%);
 }
 
 /* Button customization */
 button {
     font-size: 24px;
-    width: 40px;
-    height: 40px;
+    width: 60px;
+    height: 60px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: none;
-    border: none;
+    background: #1a1a1a;
+    border-radius: 50%;
+    border: 2px solid transparent;
     cursor: pointer;
+    color: white;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2), 0 0 10px rgba(0, 255, 255, 0.3);
+    transition: all 0.3s ease;
+    position: relative;
 }
 
+button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, #ff0066, #33ccff);
+    border-radius: 50%;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+button:hover {
+    background-color: #222;
+    transform: scale(1.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), 0 0 15px rgba(0, 255, 255, 0.5);
+}
+
+button:active {
+    transform: scale(0.95);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+button:hover::before {
+    opacity: 1;
+}
+
+/* Play/pause button customization */
 #play-pause-btn {
     font-size: 32px;
+    background-color: #2f2f2f; /* Dark gray */
+    border-radius: 50%;
+    padding: 15px;
+    border: 2px solid #444444; /* Slightly lighter gray */
+    color: white;
+    transition: all 0.3s ease;
+}
+
+#play-pause-btn:hover {
+    background-color: #555555; /* Medium dark gray */
+    border-color: #333333; /* Darker gray */
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.4); /* Soft white glow */
+}
+
+#play-pause-btn:active {
+    background-color: #222222; /* Darker gray */
+    border-color: #111111; /* Almost black */
 }
