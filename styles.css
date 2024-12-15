@@ -25,35 +25,35 @@
 #progress-bar::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 30px;
-    height: 30px;
+    width: 20px; /* Reduced size */
+    height: 20px; /* Reduced size */
     background: radial-gradient(circle, rgba(255,255,255,1) 30%, rgba(0,128,255,1) 70%, rgba(0,0,255,1) 100%);
     border: 2px solid rgba(255, 255, 255, 0.6);
     cursor: pointer;
     border-radius: 50%;
-    box-shadow: 0 8px 15px rgba(0,128,255,0.8), inset 0 0 8px rgba(255,255,255,0.9);
+    box-shadow: none; /* Removed shadow */
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 #progress-bar::-webkit-slider-thumb:hover {
     transform: scale(1.4);
-    box-shadow: 0 10px 20px rgba(0,128,255,0.9), inset 0 0 10px rgba(255,255,255,1);
+    box-shadow: none; /* Removed shadow */
 }
 
 #progress-bar::-moz-range-thumb {
-    width: 30px;
-    height: 30px;
+    width: 20px; /* Reduced size */
+    height: 20px; /* Reduced size */
     background: radial-gradient(circle, rgba(255,255,255,1) 30%, rgba(0,128,255,1) 70%, rgba(0,0,255,1) 100%);
     border: 2px solid rgba(255, 255, 255, 0.6);
     cursor: pointer;
     border-radius: 50%;
-    box-shadow: 0 8px 15px rgba(0,128,255,0.8), inset 0 0 8px rgba(255,255,255,0.9);
+    box-shadow: none; /* Removed shadow */
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 #progress-bar::-moz-range-thumb:hover {
     transform: scale(1.4);
-    box-shadow: 0 10px 20px rgba(0,128,255,0.9), inset 0 0 10px rgba(255,255,255,1);
+    box-shadow: none; /* Removed shadow */
 }
 
 #progress-bar:active::-webkit-slider-thumb {
@@ -79,7 +79,7 @@ button {
     cursor: pointer;
     color: white;
     font-weight: bold;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2), 0 0 10px rgba(0, 255, 255, 0.3);
+    box-shadow: none;
     transition: all 0.3s ease;
     position: relative;
 }
@@ -101,12 +101,12 @@ button::before {
 button:hover {
     background-color: #222;
     transform: scale(1.1);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), 0 0 15px rgba(0, 255, 255, 0.5);
+    box-shadow: none;
 }
 
 button:active {
     transform: scale(0.95);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+    box-shadow: none;
 }
 
 button:hover::before {
@@ -126,7 +126,7 @@ button:hover::before {
 #play-pause-btn:hover {
     background-color: #555555;
     border-color: #333333;
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+    box-shadow: none;
 }
 
 #play-pause-btn:active {
