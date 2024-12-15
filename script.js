@@ -1,5 +1,11 @@
 const defaultTracks = [
   {
+      name: "Maula Mere Maula",
+      artist: "Roop Kumar Rathod, Mithoon, Anwar",
+      cover: "https://raw.githubusercontent.com/KEX001/Mini-player/master/img/10.jpg",
+      source: "https://raw.githubusercontent.com/KEX001/Mini-player/master/mp3/10.mp3",
+      url: "https://t.me/ll_KEX_ll",
+  },{
       name: "Aankhon Se Tune",
       artist: "Kumar Sanu, Alka Yagnik",
       cover: "https://raw.githubusercontent.com/KEX001/Mini-player/master/img/1.jpg",
