@@ -1,25 +1,19 @@
-/* Player container customization */
 #audio-player {
     background-color: #ffffff;
     border: 1px solid #ffffff;
     border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    padding: 10px; /* Reduced padding */
-    max-width: 100%; /* Ensure it doesn't overflow */
-    width: 400px; /* Fixed width for mobile */
-    margin: auto; /* Center the container */
+    box-shadow: #3d3d3d;
+    padding: 20px;
+    margin: auto;
 }
 
-/* Responsive design for smaller screens */
 @media (max-width: 600px) {
     #audio-player {
-        width: 250px; /* Slightly smaller on smaller screens */
-        padding: 5px 10px; /* Adjust padding for smaller devices */
+        width: 250px;
+        padding: 5px 10px;
     }
 }
 
-
-/* Advanced Progress Bar with Soundwave Effect */
 #progress-bar {
     -webkit-appearance: none;
     width: 100%;
@@ -75,7 +69,6 @@
     background: radial-gradient(circle, rgba(255,255,255,1) 20%, rgba(255,0,128,1) 70%, rgba(255,0,0,1) 100%);
 }
 
-/* Button customization */
 button {
     font-size: 24px;
     width: 60px;
@@ -123,24 +116,23 @@ button:hover::before {
     opacity: 1;
 }
 
-/* Play/pause button customization */
 #play-pause-btn {
     font-size: 32px;
-    background-color: #2f2f2f; /* Dark gray */
+    background-color: #2f2f2f;
     border-radius: 50%;
     padding: 15px;
-    border: 2px solid #444444; /* Slightly lighter gray */
+    border: 2px solid #444444;
     color: white;
     transition: all 0.3s ease;
 }
 
 #play-pause-btn:hover {
-    background-color: #555555; /* Medium dark gray */
-    border-color: #333333; /* Darker gray */
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.4); /* Soft white glow */
+    background-color: #555555;
+    border-color: #333333;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
 }
 
 #play-pause-btn:active {
-    background-color: #222222; /* Darker gray */
-    border-color: #111111; /* Almost black */
+    background-color: #222222;
+    border-color: #111111;
 }
