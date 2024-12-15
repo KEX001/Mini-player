@@ -14,8 +14,10 @@
             <input type="search" id="search-input" placeholder="Lᴏᴏᴋɪɴɢ Fᴏʀ A Tᴜɴᴇ ?" class="w-full p-2 border rounded">
         </div>
         <div id="player-content">
-            <div class="player-cover mb-4">
-                <img id="cover-image" src="" alt="Track Cover" class="w-full h-[300px] object-cover rounded-xl">
+            <div class="player-cover">
+                <transition-group :name="transitionName">
+                    <div class="player-cover__item" v-if="$index === currentTrackIndex" :style="{ backgroundImage: `url(${track.cover})` }"  v-for="(track, $index) in tracks" :key="$index"></div>
+                </transition-group>
             </div>
             <div class="flex justify-between items-center mb-4">
                 <div>
