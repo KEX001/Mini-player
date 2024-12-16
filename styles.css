@@ -25,35 +25,35 @@
 #progress-bar::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 20px; /* Reduced size */
-    height: 20px; /* Reduced size */
+    width: 20px; 
+    height: 20px; 
     background: radial-gradient(circle, rgba(255,255,255,1) 30%, rgba(0,128,255,1) 70%, rgba(0,0,255,1) 100%);
     border: 2px solid rgba(255, 255, 255, 0.6);
     cursor: pointer;
     border-radius: 50%;
-    box-shadow: none; /* Removed shadow */
+    box-shadow: none; 
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 #progress-bar::-webkit-slider-thumb:hover {
     transform: scale(1.4);
-    box-shadow: none; /* Removed shadow */
+    box-shadow: none; 
 }
 
 #progress-bar::-moz-range-thumb {
-    width: 20px; /* Reduced size */
-    height: 20px; /* Reduced size */
+    width: 20px; 
+    height: 20px;
     background: radial-gradient(circle, rgba(255,255,255,1) 30%, rgba(0,128,255,1) 70%, rgba(0,0,255,1) 100%);
     border: 2px solid rgba(255, 255, 255, 0.6);
     cursor: pointer;
     border-radius: 50%;
-    box-shadow: none; /* Removed shadow */
+    box-shadow: none; 
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 #progress-bar::-moz-range-thumb:hover {
     transform: scale(1.4);
-    box-shadow: none; /* Removed shadow */
+    box-shadow: none; 
 }
 
 #progress-bar:active::-webkit-slider-thumb {
